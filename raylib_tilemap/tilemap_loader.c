@@ -1,40 +1,35 @@
-/*******************************************************************************************
-*
-*   [raylib-tmx] example - TMX Tiled Map editor loader for raylib.
-*
-*   This example has been created using raylib 3.7 (www.raylib.com)
-*   raylib-tmx is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-*
-*   Example by Rob Loach (@RobLoach)
-*
-*   Copyright (c) 2021 Rob Loach (@RobLoach)
-*
-********************************************************************************************/
-
 #include "raylib.h"
 
-#define RAYLIB_TMX_IMPLEMENTATION
-#include "raylib-tmx.h"
+#define RAYLIB_TILESON_IMPLEMENTATION
+#include "raylib-tileson.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     // Initialization
     //--------------------------------------------------------------------------------------
-    // Make sure we're running in the correct directory.
-    ChangeDirectory(GetDirectoryPath(argv[0]));
-
     const int screenWidth = 800;
     const int screenHeight = 450;
-    InitWindow(screenWidth, screenHeight, "[raylib-tmx] example");
+    Vector2 position = {0, 0};
+
+    // Make sure we're running in the correct directory.
+    const char* dir = GetDirectoryPath(argv[0]);
+    if (!ChangeDirectory(dir)) {
+        TraceLog(LOG_ERROR, "Unable to change directory to: %s", dir);
+        return 1;
+    }
+
+    InitWindow(screenWidth, screenHeight, "tilemap loader");
+
     SetTargetFPS(60);
 
-    tmx_map* map = LoadTMX(argc > 1 ? argv[1] : "resources/desert.tmx");
-    Vector2 position = {0, 0};
+    Map map = LoadTiled("resources/desert.json");     // Load the map
     //--------------------------------------------------------------------------------------
 
-    while(!WindowShouldClose()) {
-
+    // Main game loop
+    while (!WindowShouldClose()) {
         // Update
-        //----------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------
+
+        // Move around with the keyboard
         if (IsKeyDown(KEY_LEFT)) {
             position.x += 2;
         }
@@ -47,15 +42,35 @@ int main(int argc, char *argv[]) {
         if (IsKeyDown(KEY_DOWN)) {
             position.y -= 2;
         }
-        //----------------------------------------------------------------------------------
+
+        // Move based on mouse left click
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            Vector2 delta = GetMouseDelta();
+            position.x += delta.x;
+            position.y += delta.y;
+        }
+
+        // Keep the map within screen bounds
+        if (position.x > 0) {
+            position.x = 0;
+        }
+        if (position.y > 0) {
+            position.y = 0;
+        }
+        if (position.x - GetScreenWidth() < -map.width * map.tileWidth) {
+            position.x = -map.width * map.tileWidth + GetScreenWidth();
+        }
+        if (position.y - GetScreenHeight() < -map.height * map.tileHeight) {
+            position.y = -map.height * map.tileHeight + GetScreenHeight();
+        }
 
         // Draw
         //----------------------------------------------------------------------------------
+
         BeginDrawing();
         {
             ClearBackground(RAYWHITE);
-            DrawTMX(map, position.x, position.y, WHITE);
-            DrawFPS(10, 10);
+            DrawTiled(map, position.x, position.y, WHITE);
         }
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -63,7 +78,7 @@ int main(int argc, char *argv[]) {
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadTMX(map);
+    UnloadMap(map);
 
     CloseWindow();
     //--------------------------------------------------------------------------------------

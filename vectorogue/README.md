@@ -1,11 +1,11 @@
 # Build
 1. Navigate to root directory and run
 ```bash
-cmake -B build -DLIBXML2_INCLUDE_DIR:PATH="C:\Program Files\libxml2\include" -DLIBXML2_LIBRARIES:PATH="C:\Program Files\libxml2\lib"
+cmake -B build
 ```
 2. Then run
 ```bash
-cmake --build build -DLIBXML2_INCLUDE_DIR:PATH="C:\Program Files\libxml2\include" -DLIBXML2_LIBRARIES:PATH="C:\Program Files\libxml2\lib"
+cmake --build build
 ```
 
 # Execution

@@ -5,6 +5,11 @@ project(tilemap)
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Dependencies
 # Raylib
 set(RAYLIB_VERSION 5.5)
@@ -24,19 +29,19 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   endif()
 endif()
 
-# Raylib TMX
-find_package(raylib-tmx 0.0.1 QUIET) # QUIET or REQUIRED
-if (NOT raylib-tmx_FOUND) # If there's none, fetch and build raylib
+# Raylib Tileson
+find_package(raylib-tileson 4.2.1 QUIET) # QUIET or REQUIRED
+if (NOT raylib-tileson_FOUND) # If there's none, fetch and build raylib-tileson
   include(FetchContent)
   FetchContent_Declare(
-    raylib-tmx
+    raylib-tileson
     DOWNLOAD_EXTRACT_TIMESTAMP OFF
-    URL https://github.com/RobLoach/raylib-tmx/archive/refs/heads/master.tar.gz
+    URL https://github.com/RobLoach/raylib-tileson/archive/refs/heads/master.tar.gz
   )
-  FetchContent_GetProperties(raylib-tmx)
-  if (NOT raylib-tmx_POPULATED) # Have we downloaded raylib yet?
+  FetchContent_GetProperties(raylib-tileson)
+  if (NOT raylib-tileson_POPULATED) # Have we downloaded raylib-tileson yet?
     set(FETCHCONTENT_QUIET NO)
-    FetchContent_MakeAvailable(raylib-tmx)
+    FetchContent_MakeAvailable(raylib-tileson)
     set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
   endif()
 endif()
@@ -45,13 +50,13 @@ endif()
 
 add_executable(${PROJECT_NAME} tilemap_loader.c)
 #set(raylib_VERBOSE 1)
-target_link_libraries(${PROJECT_NAME} raylib raylib-tmx)
+target_link_libraries(${PROJECT_NAME} raylib raylib-tileson)
 
 # Resources
 file(GLOB resources resources/*)
 set(test_resources)
 list(APPEND test_resources ${resources})
-file(COPY ${test_resources} DESTINATION "resources/")
+file(COPY ${test_resources} DESTINATION "Debug/resources/")
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
