@@ -23,8 +23,12 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
 endif()
 
 # Our Project
+set(INCLUDES src/include)
+set(HEADER_FILES ${INCLUDES}/main.h)
 
-add_executable(${PROJECT_NAME} screen_manager.c)
+add_executable(${PROJECT_NAME} src/main.c ${HEADER_FILES})
+target_include_directories(${PROJECT_NAME} PRIVATE src/include)
+
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
 
