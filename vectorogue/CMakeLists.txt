@@ -24,9 +24,9 @@ endif()
 
 # Our Project
 set(INCLUDES src/include)
-set(HEADER_FILES ${INCLUDES}/main.h)
+set(HEADER_FILES ${INCLUDES}/main.h ${INCLUDES}/game.h)
 
-add_executable(${PROJECT_NAME} src/main.c ${HEADER_FILES})
+add_executable(${PROJECT_NAME} ${HEADER_FILES} src/main.c src/game.c)
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 
 #set(raylib_VERBOSE 1)

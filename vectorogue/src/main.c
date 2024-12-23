@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "main.h"
+#include "game.h"
 
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -146,4 +147,19 @@ void LoadComplete() {
     {
         currentState = MENU;
     }
+}
+
+void LoadAssets() {
+   currentState = LOADING;
+    /**
+      * 1. load assets (from assetloader.h)
+      */
+    // configure game session
+    InitGame();
+    // start rendering and updating game screen
+    StartGame();
+}
+
+void StartGame() {
+    currentState = RUNNING;
 }

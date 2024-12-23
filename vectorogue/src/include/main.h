@@ -6,5 +6,6 @@
 #define VECTOROGUE_MAIN_H
 
 void LoadComplete();
+void StartGame();
 
 #endif //VECTOROGUE_MAIN_H
