@@ -10,7 +10,7 @@ void DrawGame();
 void UpdateGame();
 void QuitGame();
 
-typedef enum ActorTypes {
+typedef enum {
     EMPTY = 0,
     UP_ARROW,
     RIGHT_ARROW,
@@ -22,6 +22,6 @@ typedef enum ActorTypes {
     ACTIVE_POTION,
     INERT_COINS,
     ACTIVE_COINS
-};
+} ActorTypes;
 
 #endif //VECTOROGUE_GAME_H

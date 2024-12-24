@@ -25,9 +25,6 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 1280;
-    const int screenHeight = 720;
-
     InitWindow(screenWidth, screenHeight, "Vectorogue");
 
     // TODO: Initialize all required variables and load all required data here!
