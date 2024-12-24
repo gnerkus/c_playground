@@ -21,7 +21,8 @@ typedef enum {
     INERT_POTION,
     ACTIVE_POTION,
     INERT_COINS,
-    ACTIVE_COINS
+    ACTIVE_COINS,
+    LAST
 } ActorTypes;
 
 #endif //VECTOROGUE_GAME_H
