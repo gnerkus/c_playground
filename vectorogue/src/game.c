@@ -20,6 +20,7 @@ static const int INIT_PLAYER_HP = 10;
 static const int INIT_TURN_SPEED = 1;
 static const int INIT_DELAY = 1;
 static const int TIME_UNTIL_NEXT_INPUT = 15;
+static const int MAX_NEW_ACTOR = 2;
 
 // -----------------------------------------------------
 // VARIABLES
@@ -292,6 +293,15 @@ void HandleTurn() {
     }
 
     shuffleEmpty();
+
+    // add random actors to the board
+    int emptyCount = top + 1;
+    if (emptyCount > 0) {
+        int min = emptyCount > MAX_NEW_ACTOR ? MAX_NEW_ACTOR : emptyCount;
+        for (int i = 0; i < min; ++i) {
+            actors[GetRandomEmptyTile()] = GetRandomActor();
+        }
+    }
 }
 
 void HandleTransform() {
