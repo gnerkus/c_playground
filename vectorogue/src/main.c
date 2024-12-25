@@ -50,7 +50,7 @@ int main(void)
                 // Press enter to change to GAMEPLAY screen
                 if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
                 {
-                    currentState = RUNNING;
+                    LoadAssets();
                 }
             } break;
             case RUNNING:

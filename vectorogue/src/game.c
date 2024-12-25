@@ -6,12 +6,13 @@
 
 #include "raylib.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #define GRID_WIDTH 3
 #define TILE_COUNT GRID_WIDTH * GRID_WIDTH
 #define ACTOR_TYPE_COUNT LAST - EMPTY
 
-static const int INIT_ACTOR_COUNT = 1;
+static const int INIT_ACTOR_COUNT = 4;
 int emptyTiles[TILE_COUNT];
 int top = -1;
 
@@ -62,6 +63,14 @@ void AddInitialActorsToGrid(int actorCount) {
     for (int i = 0; i < actorCount; ++i) {
         actors[GetRandomEmptyTile()] = GetRandomActor();
     }
+}
+
+void DebugBoard() {
+    printf("BOARD PRINTING: START\n");
+    for (int i = 0; i < TILE_COUNT; ++i) {
+        printf("%d\n", actors[i]);
+    }
+    printf("BOARD PRINTED: END");
 }
 
 // ----------------------------------------------------------

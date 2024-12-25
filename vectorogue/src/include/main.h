@@ -6,6 +6,7 @@
 #define VECTOROGUE_MAIN_H
 
 void LoadComplete();
+void LoadAssets();
 void StartGame();
 
 static const int screenWidth = 1280;
