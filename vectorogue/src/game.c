@@ -19,6 +19,7 @@ static const int INIT_ACTOR_COUNT = 4;
 static const int INIT_PLAYER_HP = 10;
 static const int INIT_TURN_SPEED = 1;
 static const int INIT_DELAY = 1;
+static const int TIME_UNTIL_NEXT_INPUT = 15;
 
 // -----------------------------------------------------
 // VARIABLES
@@ -338,8 +339,13 @@ void HandleTransform() {
 void UpdateGame() {
     if (currentState != GAMEOVER) {
         if (currentState != PAUSED) {
-            if (timeSinceLastInput >= 250 && !allowInput) {
+            if (timeSinceLastInput >= TIME_UNTIL_NEXT_INPUT && !allowInput) {
                 EnableInput();
+            }
+
+            if (IsKeyPressed(KEY_SPACE) && allowInput) {
+                HandleTransform();
+                DisableInput();
             }
 
             // timer; runs every 1/turnSpeed seconds
@@ -347,11 +353,6 @@ void UpdateGame() {
                 DisableInput();
                 HandleTurn();
                 EnableInput();
-            }
-
-            if (IsKeyPressed(KEY_SPACE) && allowInput) {
-                HandleTransform();
-                DisableInput();
             }
 
             framesCounter++;
