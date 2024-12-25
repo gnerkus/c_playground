@@ -179,7 +179,7 @@ void MoveUp(int row, int col, ActorTypes currentActor) {
         // current position is now occupied
         tempEmpty[new_pos] = -1;
     } else {
-        actorCounts[UP_ARROW] -= 1;
+        actorCounts[currentActor] -= 1;
     }
 }
 
@@ -190,7 +190,7 @@ void MoveRight(int row, int col, ActorTypes currentActor) {
         // current position is now occupied
         tempEmpty[new_pos] = -1;
     } else {
-        actorCounts[RIGHT_ARROW] -= 1;
+        actorCounts[currentActor] -= 1;
     }
 }
 
@@ -201,7 +201,7 @@ void MoveDown(int row, int col, ActorTypes currentActor) {
         // current position is now occupied
         tempEmpty[new_pos] = -1;
     } else {
-        actorCounts[DOWN_ARROW] -= 1;
+        actorCounts[currentActor] -= 1;
     }
 }
 
@@ -212,7 +212,7 @@ void MoveLeft(int row, int col, ActorTypes currentActor) {
         // current position is now occupied
         tempEmpty[new_pos] = -1;
     } else {
-        actorCounts[LEFT_ARROW] -= 1;
+        actorCounts[currentActor] -= 1;
     }
 }
 
