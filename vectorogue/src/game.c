@@ -90,9 +90,12 @@ int GetRandomEmptyTile() {
     return popFromEmpty();
 }
 
-void AddInitialActorsToGrid(int actorCount) {
+void AddRandomActorsToGrid(int actorCount) {
     for (int i = 0; i < actorCount; ++i) {
-        actors[GetRandomEmptyTile()] = GetRandomActor();
+        ActorTypes randomActor = GetRandomActor();
+        actors[GetRandomEmptyTile()] = randomActor;
+        actorCounts[randomActor] += 1;
+        actorCounts[EMPTY] -= 1;
     }
 }
 
@@ -150,7 +153,7 @@ void InitGame() {
     shuffleEmpty();
 
     // add random actors to grid
-    AddInitialActorsToGrid(INIT_ACTOR_COUNT);
+    AddRandomActorsToGrid(INIT_ACTOR_COUNT);
 
     playerHP = INIT_PLAYER_HP;
     playerCoins = 0;
@@ -294,13 +297,12 @@ void HandleTurn() {
 
     shuffleEmpty();
 
-    // add random actors to the board
+    // TODO: add random actors based on the types of actors already on the board; game design
+    // add random actors to the board at the end of a turn
     int emptyCount = top + 1;
     if (emptyCount > 0) {
         int min = emptyCount > MAX_NEW_ACTOR ? MAX_NEW_ACTOR : emptyCount;
-        for (int i = 0; i < min; ++i) {
-            actors[GetRandomEmptyTile()] = GetRandomActor();
-        }
+        AddRandomActorsToGrid(min);
     }
 }
 
