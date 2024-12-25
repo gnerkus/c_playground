@@ -8,7 +8,6 @@
 void InitGame();
 void DrawGame();
 void UpdateGame();
-void QuitGame();
 
 typedef enum {
     EMPTY = 0,

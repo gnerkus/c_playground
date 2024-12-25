@@ -55,7 +55,7 @@ int main(void)
             } break;
             case RUNNING:
             {
-                // TODO: Update GAMEPLAY screen variables here!
+                UpdateGame();
 
                 // Press enter to change to ENDING screen
                 if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -102,6 +102,7 @@ int main(void)
                 } break;
                 case RUNNING:
                 {
+                    DrawGame();
                     // TODO: Draw GAMEPLAY screen here!
                     DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
                     DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);

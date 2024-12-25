@@ -12,12 +12,41 @@
 #define TILE_COUNT GRID_WIDTH * GRID_WIDTH
 #define ACTOR_TYPE_COUNT LAST - EMPTY
 
+// ----------------------------------------------------
+// CONSTANTS
+// ----------------------------------------------------
 static const int INIT_ACTOR_COUNT = 4;
-int emptyTiles[TILE_COUNT];
-int top = -1;
+static const int INIT_PLAYER_HP = 10;
+static const int INIT_TURN_SPEED = 1;
+static const int INIT_DELAY = 1;
 
-ActorTypes actors[TILE_COUNT];
-int actorCounts[ACTOR_TYPE_COUNT];
+// -----------------------------------------------------
+// VARIABLES
+// -----------------------------------------------------
+/**
+ * stack of positions on the board not occupied by an actor
+ */
+static int emptyTiles[TILE_COUNT];
+static int top = -1;
+
+/**
+ * keeps track of the actors on the board
+ */
+static ActorTypes actors[TILE_COUNT];
+/**
+ * keeps track of the number of each type of actor on the board.
+ * useful for determining which type of actor can be added to the board
+ */
+static int actorCounts[ACTOR_TYPE_COUNT];
+
+static int framesCounter = 0;
+static int timer = 0;
+static bool pause = false;
+static bool gameOver = false;
+
+static int playerHP = 0;
+static int playerCoins = 0;
+static int turnSpeed = 0;
 
 // ----------------------------------------------------------
 // PRIVATE
@@ -99,4 +128,29 @@ void InitGame() {
 
     // add random actors to grid
     AddInitialActorsToGrid(INIT_ACTOR_COUNT);
+
+    playerHP = INIT_PLAYER_HP;
+    playerCoins = 0;
+    turnSpeed = INIT_TURN_SPEED;
+
+    framesCounter = 0;
+    timer = framesCounter + INIT_DELAY;
+}
+
+void UpdateGame() {
+    if (!gameOver) {
+        if (!pause) {
+            // timer; runs every 1/turnSpeed seconds
+            if ((timer % (60 / turnSpeed)) == 0) {
+            }
+
+            framesCounter++;
+            timer++;
+        }
+    }
+
+}
+
+void DrawGame() {
+
 }
