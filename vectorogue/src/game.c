@@ -41,6 +41,8 @@ static int actorCounts[ACTOR_TYPE_COUNT];
 static int tempEmpty[TILE_COUNT];
 
 static int timer = 0;
+static bool allowInput = false;
+static int timeSinceLastInput = 0;
 
 static int playerHP = 0;
 static int playerCoins = 0;
@@ -90,6 +92,15 @@ void AddInitialActorsToGrid(int actorCount) {
     for (int i = 0; i < actorCount; ++i) {
         actors[GetRandomEmptyTile()] = GetRandomActor();
     }
+}
+
+void EnableInput() {
+    allowInput = true;
+    timeSinceLastInput = 0;
+}
+
+void DisableInput() {
+    allowInput = false;
 }
 
 void DebugBoard() {
@@ -145,6 +156,7 @@ void InitGame() {
 
     timer = INIT_DELAY;
     currentState = RUNNING;
+    EnableInput();
 }
 
 int GetIdxFromRowCol(int row, int col) {
@@ -248,7 +260,6 @@ void HandleTurn() {
                 HandleArrow(LEFT_ARROW);
                 break;
             case ACTIVE_MONSTER:
-                printf("active monster\n");
                 playerHP -= 1;
                 break;
             case ACTIVE_COINS:
@@ -282,16 +293,70 @@ void HandleTurn() {
     shuffleEmpty();
 }
 
+void HandleTransform() {
+    for (int i = 0; i < TILE_COUNT; ++i) {
+        ActorTypes currentActor = actors[i];
+        switch (currentActor) {
+            case UP_ARROW:
+                actors[i] = RIGHT_ARROW;
+                break;
+            case RIGHT_ARROW:
+                actors[i] = DOWN_ARROW;
+                break;
+            case DOWN_ARROW:
+                actors[i] = LEFT_ARROW;
+                break;
+            case LEFT_ARROW:
+                actors[i] = UP_ARROW;
+                break;
+            case INERT_MONSTER:
+                actors[i] = ACTIVE_MONSTER;
+                break;
+            case ACTIVE_MONSTER:
+                actors[i] = INERT_MONSTER;
+                break;
+            case INERT_POTION:
+                actors[i] = ACTIVE_POTION;
+                break;
+            case ACTIVE_POTION:
+                actors[i] = INERT_POTION;
+                break;
+            case INERT_COINS:
+                actors[i] = ACTIVE_COINS;
+                break;
+            case ACTIVE_COINS:
+                actors[i] = INERT_COINS;
+                break;
+            case EMPTY:
+            case LAST:
+            default:
+                break;
+        }
+    }
+}
+
 void UpdateGame() {
     if (currentState != GAMEOVER) {
         if (currentState != PAUSED) {
+            if (timeSinceLastInput >= 250 && !allowInput) {
+                EnableInput();
+            }
+
             // timer; runs every 1/turnSpeed seconds
             if ((timer % (60 / turnSpeed)) == 0) {
+                DisableInput();
                 HandleTurn();
+                EnableInput();
+            }
+
+            if (IsKeyPressed(KEY_SPACE) && allowInput) {
+                HandleTransform();
+                DisableInput();
             }
 
             framesCounter++;
             timer++;
+            timeSinceLastInput++;
         }
     }
 
