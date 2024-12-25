@@ -5,17 +5,8 @@
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
 //------------------------------------------------------------------------------------------
-typedef enum ApplicationStates {
-    STARTUP = 0,
-    LOADING,
-    MENU,
-    RUNNING,
-    PAUSED,
-    GAMEOVER,
-    QUITTING
-} ApplicationState;
 
-ApplicationState currentState = STARTUP;
+ApplicationStates currentState = STARTUP;
 int framesCounter = 0;
 
 //------------------------------------------------------------------------------------

@@ -9,6 +9,19 @@ void LoadComplete();
 void LoadAssets();
 void StartGame();
 
+typedef enum {
+    STARTUP = 0,
+    LOADING,
+    MENU,
+    RUNNING,
+    PAUSED,
+    GAMEOVER,
+    QUITTING
+} ApplicationStates;
+
+extern ApplicationStates currentState;
+extern int framesCounter;
+
 static const int screenWidth = 1280;
 static const int screenHeight = 720;
 

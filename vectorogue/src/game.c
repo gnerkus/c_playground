@@ -39,10 +39,7 @@ static ActorTypes actors[TILE_COUNT];
  */
 static int actorCounts[ACTOR_TYPE_COUNT];
 
-static int framesCounter = 0;
 static int timer = 0;
-static bool pause = false;
-static bool gameOver = false;
 
 static int playerHP = 0;
 static int playerCoins = 0;
@@ -133,15 +130,16 @@ void InitGame() {
     playerCoins = 0;
     turnSpeed = INIT_TURN_SPEED;
 
-    framesCounter = 0;
-    timer = framesCounter + INIT_DELAY;
+    timer = INIT_DELAY;
+    currentState = RUNNING;
 }
 
 void UpdateGame() {
-    if (!gameOver) {
-        if (!pause) {
+    if (currentState != GAMEOVER) {
+        if (currentState != PAUSED) {
             // timer; runs every 1/turnSpeed seconds
             if ((timer % (60 / turnSpeed)) == 0) {
+                printf("TURN");
             }
 
             framesCounter++;
