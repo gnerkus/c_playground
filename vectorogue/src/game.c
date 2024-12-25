@@ -97,14 +97,14 @@ void DebugBoard() {
     for (int i = 0; i < TILE_COUNT; ++i) {
         printf("%d\n", actors[i]);
     }
-    printf("BOARD PRINTED: END");
+    printf("BOARD PRINTED: END\n");
 }
 
 void DebugPlayerState() {
     printf("PLAYER STATE: START\n");
     printf("HP: %d\n", playerHP);
     printf("coins: %d\n", playerCoins);
-    printf("PLAYER STATE: END");
+    printf("PLAYER STATE: END\n");
 }
 
 // ----------------------------------------------------------
@@ -159,18 +159,74 @@ int GetColFromIdx(int idx) {
     return idx % GRID_WIDTH;
 }
 
-void HandleUpArrow() {
+void MoveUp(int row, int col, ActorTypes currentActor) {
+    if (row > 0) {
+        int new_pos = GetIdxFromRowCol(row - 1, col);
+        actors[new_pos] = currentActor;
+        // current position is now occupied
+        tempEmpty[new_pos] = -1;
+    } else {
+        actorCounts[UP_ARROW] -= 1;
+    }
+}
+
+void MoveRight(int row, int col, ActorTypes currentActor) {
+    if (col < GRID_WIDTH - 1) {
+        int new_pos = GetIdxFromRowCol(row, col + 1);
+        actors[new_pos] = currentActor;
+        // current position is now occupied
+        tempEmpty[new_pos] = -1;
+    } else {
+        actorCounts[RIGHT_ARROW] -= 1;
+    }
+}
+
+void MoveDown(int row, int col, ActorTypes currentActor) {
+    if (row < GRID_WIDTH - 1) {
+        int new_pos = GetIdxFromRowCol(row + 1, col);
+        actors[new_pos] = currentActor;
+        // current position is now occupied
+        tempEmpty[new_pos] = -1;
+    } else {
+        actorCounts[DOWN_ARROW] -= 1;
+    }
+}
+
+void MoveLeft(int row, int col, ActorTypes currentActor) {
+    if (col > 0) {
+        int new_pos = GetIdxFromRowCol(row, col - 1);
+        actors[new_pos] = currentActor;
+        // current position is now occupied
+        tempEmpty[new_pos] = -1;
+    } else {
+        actorCounts[LEFT_ARROW] -= 1;
+    }
+}
+
+void HandleArrow(ActorTypes arrowType) {
     for (int i = 0; i < TILE_COUNT; ++i) {
         tempEmpty[i] = i;
         ActorTypes currentActor = actors[i];
         int row = GetRowFromIdx(i);
         int col = GetColFromIdx(i);
-        if (row > 0) {
-            int new_pos = GetIdxFromRowCol(row - 1, col);
-            actors[new_pos] = currentActor;
-            // current position is now occupied
-            tempEmpty[new_pos] = -1;
+
+        switch (arrowType) {
+            case UP_ARROW:
+                MoveUp(row, col, currentActor);
+                break;
+            case RIGHT_ARROW:
+                MoveRight(row, col, currentActor);
+                break;
+            case DOWN_ARROW:
+                MoveDown(row, col, currentActor);
+                break;
+            case LEFT_ARROW:
+                MoveLeft(row, col, currentActor);
+                break;
+            default:
+                break;
         }
+
         actors[i] = EMPTY;
     }
 }
@@ -180,9 +236,19 @@ void HandleTurn() {
         ActorTypes currentActor = actors[i];
         switch (currentActor) {
             case UP_ARROW:
-                HandleUpArrow();
+                HandleArrow(UP_ARROW);
+                break;
+            case RIGHT_ARROW:
+                HandleArrow(RIGHT_ARROW);
+                break;
+            case DOWN_ARROW:
+                HandleArrow(DOWN_ARROW);
+                break;
+            case LEFT_ARROW:
+                HandleArrow(LEFT_ARROW);
                 break;
             case ACTIVE_MONSTER:
+                printf("active monster\n");
                 playerHP -= 1;
                 break;
             case ACTIVE_COINS:
