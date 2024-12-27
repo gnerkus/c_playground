@@ -58,7 +58,7 @@ target_link_libraries(${PROJECT_NAME} raylib raylib-tileson)
 file(GLOB resources resources/*)
 set(test_resources)
 list(APPEND test_resources ${resources})
-file(COPY ${test_resources} DESTINATION "Debug/resources/")
+file(COPY ${test_resources} DESTINATION "resources/")
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
