@@ -4,6 +4,11 @@ project(vectorogue)
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Dependencies
 set(RAYLIB_VERSION 5.5)
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
@@ -47,7 +52,7 @@ add_executable(${PROJECT_NAME} ${HEADER_FILES} src/main.c src/game.c)
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 
 #set(raylib_VERBOSE 1)
-target_link_libraries(${PROJECT_NAME} raylib)
+target_link_libraries(${PROJECT_NAME} raylib raylib-tileson)
 
 # Resources
 file(GLOB resources resources/*)
