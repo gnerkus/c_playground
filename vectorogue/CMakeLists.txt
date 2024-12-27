@@ -22,6 +22,23 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   endif()
 endif()
 
+# Raylib Tileson
+find_package(raylib-tileson 4.2.1 QUIET) # QUIET or REQUIRED
+if (NOT raylib-tileson_FOUND) # If there's none, fetch and build raylib-tileson
+    include(FetchContent)
+    FetchContent_Declare(
+            raylib-tileson
+            DOWNLOAD_EXTRACT_TIMESTAMP OFF
+            URL https://github.com/RobLoach/raylib-tileson/archive/refs/heads/master.tar.gz
+    )
+    FetchContent_GetProperties(raylib-tileson)
+    if (NOT raylib-tileson_POPULATED) # Have we downloaded raylib-tileson yet?
+        set(FETCHCONTENT_QUIET NO)
+        FetchContent_MakeAvailable(raylib-tileson)
+        set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
+    endif()
+endif()
+
 # Our Project
 set(INCLUDES src/include)
 set(HEADER_FILES ${INCLUDES}/main.h ${INCLUDES}/game.h)
@@ -31,6 +48,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
+
+# Resources
+file(GLOB resources resources/*)
+set(test_resources)
+list(APPEND test_resources ${resources})
+file(COPY ${test_resources} DESTINATION "Debug/resources/")
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
