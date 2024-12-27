@@ -8,6 +8,7 @@
 
 ApplicationStates currentState = STARTUP;
 int framesCounter = 0;
+Map map;
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -95,9 +96,9 @@ int main(void)
                 {
                     DrawGame();
                     // TODO: Draw GAMEPLAY screen here!
-                    DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
-                    DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-                    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+                    //DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
+                    //DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
+                    //DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
 
                 } break;
                 case QUITTING:
@@ -119,6 +120,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     // TODO: Unload all loaded data (textures, fonts, audio) here!
+    UnloadMap(map);
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -140,6 +142,8 @@ void LoadComplete() {
 
 void LoadAssets() {
    currentState = LOADING;
+    // TODO: move to loading state
+    map = LoadTiled("resources/floor.json");
     /**
       * 1. load assets (from assetloader.h)
       */

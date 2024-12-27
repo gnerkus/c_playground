@@ -5,6 +5,9 @@
 #ifndef VECTOROGUE_MAIN_H
 #define VECTOROGUE_MAIN_H
 
+#define RAYLIB_TILESON_IMPLEMENTATION
+#include "raylib-tileson.h"
+
 void LoadComplete();
 void LoadAssets();
 void StartGame();
@@ -24,5 +27,7 @@ extern int framesCounter;
 
 static const int screenWidth = 1280;
 static const int screenHeight = 720;
+
+extern Map map;
 
 #endif //VECTOROGUE_MAIN_H

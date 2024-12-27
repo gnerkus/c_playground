@@ -8,9 +8,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define RAYLIB_TILESON_IMPLEMENTATION
-#include "raylib-tileson.h"
-
 #define GRID_WIDTH 3
 #define TILE_COUNT GRID_WIDTH * GRID_WIDTH
 #define ACTOR_TYPE_COUNT LAST - EMPTY
@@ -379,5 +376,6 @@ void UpdateGame() {
 }
 
 void DrawGame() {
-
+    ClearBackground(RAYWHITE);
+    DrawTiled(map, 0, 0, WHITE);
 }
