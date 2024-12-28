@@ -90,6 +90,13 @@ int main(void)
                     DrawText("WAIT for 1 SECOND...", 290, 220, 20, GRAY);
 
                 } break;
+                case LOADING:
+                {
+                    DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
+                    DrawText("LOADING SCREEN", 20, 20, 40, MAROON);
+                    DrawText("PRESS ENTER or TAP to JUMP to MENU SCREEN", 120, 220, 20, MAROON);
+
+                } break;
                 case MENU:
                 {
                     // TODO: Draw TITLE screen here!
@@ -101,11 +108,6 @@ int main(void)
                 case RUNNING:
                 {
                     DrawGame();
-                    // TODO: Draw GAMEPLAY screen here!
-                    //DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
-                    //DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-                    //DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
-
                 } break;
                 case QUITTING:
                 {
@@ -125,8 +127,7 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
 
-    // TODO: Unload all loaded data (textures, fonts, audio) here!
-    UnloadMap(map);
+    // unload resources
     CleanupResources();
 
     CloseWindow();        // Close window and OpenGL context

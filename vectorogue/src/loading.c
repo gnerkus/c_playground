@@ -8,13 +8,28 @@
 
 #include "raylib.h"
 
-ApplicationStates currentState;
-Map map;
-
 const char *itemsToLoad[MAX_TEXTURES_TO_LOAD];
 
 static int loadedCount = 0;
 static bool mapLoaded = false;
+
+struct SpriteInfo Sprites[32];
+Texture2D Textures[MAX_TEXTURES_TO_LOAD];
+
+// loot sprites
+int EMPTY_LOOT_SPRITE;
+int POTION_LOOT_SPRITE;
+int COIN_LOOT_SPRITE;
+
+// arrow sprites
+int DOWN_ARROW_SPRITE;
+int RIGHT_ARROW_SPRITE;
+int UP_ARROW_SPRITE;
+int LEFT_ARROW_SPRITE;
+
+// mob sprites
+int ACTIVE_SLIME_SPRITE;
+int IDLE_SLIME_SPRITE;
 
 // load resources
 void InitResources() {
@@ -47,6 +62,9 @@ void CleanupResources() {
         // todo: empty Textures array
     }
     loadedCount = 0;
+
+    UnloadMap(map);
+    mapLoaded = false;
 }
 
 void FinalizeLoad() {
