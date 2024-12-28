@@ -1,6 +1,7 @@
 //
 // Created by nanotome on 12/27/2024.
 //
+#include <stdio.h>
 
 #include "loading.h"
 #include "main.h"
@@ -8,13 +9,14 @@
 
 #include "raylib.h"
 
+// texture IDs
+const int TILESET_TEXTURE = 0;
+const int ACTORS_TEXTURE = 1;
+
 const char *itemsToLoad[MAX_TEXTURES_TO_LOAD];
 
 static int loadedCount = 0;
 static bool mapLoaded = false;
-
-struct SpriteInfo Sprites[32];
-Texture2D Textures[MAX_TEXTURES_TO_LOAD];
 
 // loot sprites
 int EMPTY_LOOT_SPRITE;
@@ -71,44 +73,46 @@ void FinalizeLoad() {
     // MOBS
     // active slime
     Sprites[ACTIVE_SLIME_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[ACTIVE_SLIME_SPRITE].SourceRec.x = 0;
-    Sprites[ACTIVE_SLIME_SPRITE].SourceRec.y = 1;
+    Sprites[ACTIVE_SLIME_SPRITE].originX = 0;
+    Sprites[ACTIVE_SLIME_SPRITE].originY = 1;
+    Sprites[ACTIVE_SLIME_SPRITE].width = 32;
+    Sprites[ACTIVE_SLIME_SPRITE].height = 32;
     // idle slime
     Sprites[IDLE_SLIME_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[IDLE_SLIME_SPRITE].SourceRec.x = 1;
-    Sprites[IDLE_SLIME_SPRITE].SourceRec.y = 1;
+    Sprites[IDLE_SLIME_SPRITE].originX = 1;
+    Sprites[IDLE_SLIME_SPRITE].originY = 1;
 
     // LOOT
     // empty loot
     Sprites[EMPTY_LOOT_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[EMPTY_LOOT_SPRITE].SourceRec.x = 2;
-    Sprites[EMPTY_LOOT_SPRITE].SourceRec.y = 0;
+    Sprites[EMPTY_LOOT_SPRITE].originX = 2;
+    Sprites[EMPTY_LOOT_SPRITE].originY = 0;
     // potion loot
     Sprites[POTION_LOOT_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[POTION_LOOT_SPRITE].SourceRec.x = 3;
-    Sprites[POTION_LOOT_SPRITE].SourceRec.y = 0;
+    Sprites[POTION_LOOT_SPRITE].originX = 3;
+    Sprites[POTION_LOOT_SPRITE].originY = 0;
     // coin loot
     Sprites[COIN_LOOT_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[COIN_LOOT_SPRITE].SourceRec.x = 2;
-    Sprites[COIN_LOOT_SPRITE].SourceRec.y = 1;
+    Sprites[COIN_LOOT_SPRITE].originX = 2;
+    Sprites[COIN_LOOT_SPRITE].originY = 1;
 
     // ARROWS
     // down arrow
     Sprites[DOWN_ARROW_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[DOWN_ARROW_SPRITE].SourceRec.x = 4;
-    Sprites[DOWN_ARROW_SPRITE].SourceRec.y = 0;
+    Sprites[DOWN_ARROW_SPRITE].originX = 4;
+    Sprites[DOWN_ARROW_SPRITE].originY = 0;
     // right arrow
     Sprites[RIGHT_ARROW_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[RIGHT_ARROW_SPRITE].SourceRec.x = 5;
-    Sprites[RIGHT_ARROW_SPRITE].SourceRec.y = 0;
+    Sprites[RIGHT_ARROW_SPRITE].originX = 5;
+    Sprites[RIGHT_ARROW_SPRITE].originY = 0;
     // up arrow
     Sprites[UP_ARROW_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[UP_ARROW_SPRITE].SourceRec.x = 4;
-    Sprites[UP_ARROW_SPRITE].SourceRec.y = 1;
+    Sprites[UP_ARROW_SPRITE].originX = 4;
+    Sprites[UP_ARROW_SPRITE].originY = 1;
     // left arrow
     Sprites[LEFT_ARROW_SPRITE].TextureId = ACTORS_TEXTURE;
-    Sprites[LEFT_ARROW_SPRITE].SourceRec.x = 5;
-    Sprites[LEFT_ARROW_SPRITE].SourceRec.y = 1;
+    Sprites[LEFT_ARROW_SPRITE].originX = 5;
+    Sprites[LEFT_ARROW_SPRITE].originY = 1;
 }
 
 void UpdateLoad() {

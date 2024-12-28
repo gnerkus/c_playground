@@ -3,6 +3,8 @@
 //
 #include "main.h"
 #include "game.h"
+#include "loading.h"
+#include "resource_ids.h"
 
 #include "raylib.h"
 #include <stdlib.h>
@@ -49,6 +51,9 @@ static int timeSinceLastInput = 0;
 static int playerHP = 0;
 static int playerCoins = 0;
 static int turnSpeed = 0;
+
+struct SpriteInfo Sprites[32];
+Texture2D Textures[MAX_TEXTURES_TO_LOAD];
 
 // ----------------------------------------------------------
 // PRIVATE
@@ -375,6 +380,14 @@ void UpdateGame() {
 }
 
 void DrawGame() {
+    Vector2 position = { 350.0f, 280.0f };
     ClearBackground(RAYWHITE);
     DrawTiled(map, 0, 0, WHITE);
+    Rectangle drawRect = {
+        Sprites[ACTIVE_SLIME_SPRITE].originX,
+        Sprites[ACTIVE_SLIME_SPRITE].originY,
+        Sprites[ACTIVE_SLIME_SPRITE].width,
+        Sprites[ACTIVE_SLIME_SPRITE].height
+    };
+    DrawTextureRec(Textures[Sprites[ACTIVE_SLIME_SPRITE].TextureId], drawRect, position, WHITE);
 }

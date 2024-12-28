@@ -5,10 +5,6 @@
 #ifndef VECTOROGUE_RESOURCE_IDS_H
 #define VECTOROGUE_RESOURCE_IDS_H
 
-// texture IDs
-const int TILESET_TEXTURE = 0;
-const int ACTORS_TEXTURE = 1;
-
 // loot sprites
 extern int EMPTY_LOOT_SPRITE;
 extern int POTION_LOOT_SPRITE;
