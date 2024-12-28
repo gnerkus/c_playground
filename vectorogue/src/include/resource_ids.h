@@ -10,18 +10,18 @@ const int TILESET_TEXTURE = 0;
 const int ACTORS_TEXTURE = 1;
 
 // loot sprites
-const int EMPTY_LOOT_SPRITE = 2;
-const int POTION_LOOT_SPRITE = 3;
-const int COIN_LOOT_SPRITE = 8;
+extern int EMPTY_LOOT_SPRITE;
+extern int POTION_LOOT_SPRITE;
+extern int COIN_LOOT_SPRITE;
 
 // arrow sprites
-const int DOWN_ARROW_SPRITE = 4;
-const int RIGHT_ARROW_SPRITE = 5;
-const int UP_ARROW_SPRITE = 10;
-const int LEFT_ARROW_SPRITE = 11;
+extern int DOWN_ARROW_SPRITE;
+extern int RIGHT_ARROW_SPRITE;
+extern int UP_ARROW_SPRITE;
+extern int LEFT_ARROW_SPRITE;
 
 // mob sprites
-const int ACTIVE_SLIME_SPRITE = 6;
-const int IDLE_SLIME_SPRITE = 7;
+extern int ACTIVE_SLIME_SPRITE;
+extern int IDLE_SLIME_SPRITE;
 
 #endif //VECTOROGUE_RESOURCE_IDS_H
