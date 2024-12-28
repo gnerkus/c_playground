@@ -160,7 +160,6 @@ void InitGame() {
     turnSpeed = INIT_TURN_SPEED;
 
     timer = INIT_DELAY;
-    currentState = RUNNING;
     EnableInput();
 }
 

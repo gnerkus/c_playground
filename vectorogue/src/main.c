@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "main.h"
 #include "game.h"
+#include "loading.h"
 
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -19,7 +20,8 @@ int main(void)
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "Vectorogue");
 
-    // TODO: Initialize all required variables and load all required data here!
+    // load assets
+    InitResources();
 
     SetTargetFPS(60);               // Set desired framerate (frames-per-second)
     //--------------------------------------------------------------------------------------
@@ -33,7 +35,11 @@ int main(void)
         {
             case STARTUP:
             {
-                LoadComplete();
+                currentState = LOADING;
+            } break;
+            case LOADING:
+            {
+                UpdateLoad();
             } break;
             case MENU:
             {
@@ -42,7 +48,7 @@ int main(void)
                 // Press enter to change to GAMEPLAY screen
                 if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
                 {
-                    LoadAssets();
+                    StartGame();
                 }
             } break;
             case RUNNING:
@@ -121,6 +127,7 @@ int main(void)
 
     // TODO: Unload all loaded data (textures, fonts, audio) here!
     UnloadMap(map);
+    CleanupResources();
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -129,30 +136,10 @@ int main(void)
 }
 
 void LoadComplete() {
-    // TODO: Update LOGO screen variables here!
-
-    framesCounter++;    // Count frames
-
-    // Wait for 2 seconds (120 frames) before jumping to TITLE screen
-    if (framesCounter > 60)
-    {
-        currentState = MENU;
-    }
-}
-
-void LoadAssets() {
-   currentState = LOADING;
-    // TODO: move to loading state
-    map = LoadTiled("resources/floor.json");
-    /**
-      * 1. load assets (from assetloader.h)
-      */
-    // configure game session
-    InitGame();
-    // start rendering and updating game screen
-    StartGame();
+    currentState = MENU;
 }
 
 void StartGame() {
+    InitGame();
     currentState = RUNNING;
 }

@@ -9,7 +9,6 @@
 #include "raylib-tileson.h"
 
 void LoadComplete();
-void LoadAssets();
 void StartGame();
 
 typedef enum {
