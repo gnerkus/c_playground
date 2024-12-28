@@ -380,12 +380,12 @@ void UpdateGame() {
 }
 
 void DrawGame() {
-    Vector2 position = { 350.0f, 280.0f };
+    Vector2 position = { 0.0f, 0.0f };
     ClearBackground(RAYWHITE);
     DrawTiled(map, 0, 0, WHITE);
     Rectangle drawRect = {
-        Sprites[ACTIVE_SLIME_SPRITE].originX,
-        Sprites[ACTIVE_SLIME_SPRITE].originY,
+        Sprites[ACTIVE_SLIME_SPRITE].originX * Sprites[ACTIVE_SLIME_SPRITE].width,
+        Sprites[ACTIVE_SLIME_SPRITE].originY * Sprites[ACTIVE_SLIME_SPRITE].height,
         Sprites[ACTIVE_SLIME_SPRITE].width,
         Sprites[ACTIVE_SLIME_SPRITE].height
     };
