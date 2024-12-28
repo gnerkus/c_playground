@@ -381,13 +381,13 @@ void UpdateGame() {
 
 void DrawGame() {
     Vector2 position = { 0.0f, 0.0f };
-    ClearBackground(RAYWHITE);
+    ClearBackground(BLACK);
     DrawTiled(map, 0, 0, WHITE);
     Rectangle drawRect = {
-        Sprites[ACTIVE_SLIME_SPRITE].originX * Sprites[ACTIVE_SLIME_SPRITE].width,
-        Sprites[ACTIVE_SLIME_SPRITE].originY * Sprites[ACTIVE_SLIME_SPRITE].height,
-        Sprites[ACTIVE_SLIME_SPRITE].width,
-        Sprites[ACTIVE_SLIME_SPRITE].height
+        Sprites[ACTIVE_SLIME_SPRITE].originX * SPRITE_WIDTH,
+        Sprites[ACTIVE_SLIME_SPRITE].originY * SPRITE_HEIGHT,
+        SPRITE_WIDTH,
+        SPRITE_HEIGHT
     };
     DrawTextureRec(Textures[Sprites[ACTIVE_SLIME_SPRITE].TextureId], drawRect, position, WHITE);
 }

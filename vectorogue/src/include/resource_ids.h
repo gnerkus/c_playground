@@ -5,6 +5,10 @@
 #ifndef VECTOROGUE_RESOURCE_IDS_H
 #define VECTOROGUE_RESOURCE_IDS_H
 
+// sprite info
+extern int SPRITE_WIDTH;
+extern int SPRITE_HEIGHT;
+
 // loot sprites
 extern int EMPTY_LOOT_SPRITE;
 extern int POTION_LOOT_SPRITE;

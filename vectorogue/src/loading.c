@@ -18,6 +18,9 @@ const char *itemsToLoad[MAX_TEXTURES_TO_LOAD];
 static int loadedCount = 0;
 static bool mapLoaded = false;
 
+int SPRITE_WIDTH;
+int SPRITE_HEIGHT;
+
 // loot sprites
 int EMPTY_LOOT_SPRITE;
 int POTION_LOOT_SPRITE;
@@ -39,6 +42,10 @@ void InitResources() {
 
     itemsToLoad[TILESET_TEXTURE] = "resources/vectorogue_floor.png";
     itemsToLoad[ACTORS_TEXTURE] = "resources/vectorogue_actors.png";
+
+    // sprite info
+    SPRITE_WIDTH = 32;
+    SPRITE_HEIGHT = 32;
 
     // loot sprites
     EMPTY_LOOT_SPRITE = 2;
@@ -75,8 +82,6 @@ void FinalizeLoad() {
     Sprites[ACTIVE_SLIME_SPRITE].TextureId = ACTORS_TEXTURE;
     Sprites[ACTIVE_SLIME_SPRITE].originX = 0;
     Sprites[ACTIVE_SLIME_SPRITE].originY = 1;
-    Sprites[ACTIVE_SLIME_SPRITE].width = 32;
-    Sprites[ACTIVE_SLIME_SPRITE].height = 32;
     // idle slime
     Sprites[IDLE_SLIME_SPRITE].TextureId = ACTORS_TEXTURE;
     Sprites[IDLE_SLIME_SPRITE].originX = 1;

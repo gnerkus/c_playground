@@ -13,8 +13,6 @@ struct SpriteInfo {
     int TextureId;
     int originX;
     int originY;
-    int width;
-    int height;
 };
 
 extern struct SpriteInfo Sprites[32];
