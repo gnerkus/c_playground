@@ -389,5 +389,8 @@ void DrawGame() {
         SPRITE_WIDTH,
         SPRITE_HEIGHT
     };
+    Rectangle destRect = { 0.0f, 0.0f, 64.0f, 64.0f };
     DrawTextureRec(Textures[Sprites[ACTIVE_SLIME_SPRITE].TextureId], drawRect, position, WHITE);
+    // scaled render of active slime
+//    DrawTexturePro(Textures[Sprites[ACTIVE_SLIME_SPRITE].TextureId], drawRect, destRect, position, 0, WHITE);
 }
