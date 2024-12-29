@@ -3,9 +3,9 @@
  "infinite":false,
  "layers":[
         {
-         "data":[1, 7, 7,
-            3, 3, 8,
-            5, 4, 1],
+         "data":[7, 4, 5,
+            3, 1, 7,
+            8, 5, 7],
          "height":3,
          "id":1,
          "name":"Tile Layer 1",
@@ -21,22 +21,22 @@
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",
- "tileheight":32,
+ "tileheight":64,
  "tilesets":[
         {
          "columns":4,
          "firstgid":1,
          "image":"vectorogue_floor.png",
-         "imageheight":64,
-         "imagewidth":128,
+         "imageheight":128,
+         "imagewidth":256,
          "margin":0,
-         "name":"floor",
+         "name":"floor_2",
          "spacing":0,
          "tilecount":8,
-         "tileheight":32,
-         "tilewidth":32
+         "tileheight":64,
+         "tilewidth":64
         }],
- "tilewidth":32,
+ "tilewidth":64,
  "type":"map",
  "version":"1.10",
  "width":3
