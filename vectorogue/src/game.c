@@ -371,7 +371,7 @@ void UpdateGame() {
             }
 
             // timer; runs every 1/turnSpeed seconds
-            if ((timer % (60 / turnSpeed)) == 0) {
+            if ((timer % (240 / turnSpeed)) == 0) {
                 DisableInput();
                 HandleTurn();
                 EnableInput();
