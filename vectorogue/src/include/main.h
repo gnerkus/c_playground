@@ -24,8 +24,8 @@ typedef enum {
 extern ApplicationStates currentState;
 extern int framesCounter;
 
-static const int screenWidth = 1280;
-static const int screenHeight = 720;
+extern int screenWidth;
+extern int screenHeight;
 
 extern Map map;
 

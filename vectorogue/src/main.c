@@ -10,6 +10,8 @@
 ApplicationStates currentState = STARTUP;
 int framesCounter = 0;
 Map map;
+int screenWidth = 1280;
+int screenHeight = 720;
 
 //------------------------------------------------------------------------------------
 // Program main entry point

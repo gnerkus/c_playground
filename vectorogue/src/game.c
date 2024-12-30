@@ -23,6 +23,9 @@ static const int INIT_TURN_SPEED = 1;
 static const int INIT_DELAY = 1;
 static const int TIME_UNTIL_NEXT_INPUT = 15;
 static const int MAX_NEW_ACTOR = 2;
+static const int SPRITE_SCALE = 2;
+int X_OFFSET;
+int Y_OFFSET;
 
 // -----------------------------------------------------
 // VARIABLES
@@ -132,6 +135,9 @@ void DebugPlayerState() {
 // PUBLIC (in header file)
 // ----------------------------------------------------------
 void InitGame() {
+    X_OFFSET = screenWidth / 2 - (GRID_WIDTH * SPRITE_WIDTH / 2);
+    Y_OFFSET = screenHeight / 2 - (GRID_WIDTH * SPRITE_HEIGHT / 2);
+
     // initialize actor counts
     for (int i = 0; i < ACTOR_TYPE_COUNT; ++i) {
         actorCounts[i] = 0;
@@ -376,21 +382,72 @@ void UpdateGame() {
             timeSinceLastInput++;
         }
     }
+}
 
+void DrawActor(int actorID, int row, int col, Vector2 origin) {
+    struct SpriteInfo actorInfo = Sprites[actorID];
+    Texture2D spriteTexture = Textures[actorInfo.TextureId];
+    Rectangle srcRect = {
+            actorInfo.originX * SPRITE_WIDTH,
+            actorInfo.originY * SPRITE_HEIGHT,
+            SPRITE_WIDTH,
+            SPRITE_HEIGHT
+    };
+    Rectangle destRect = {
+            col * SPRITE_WIDTH * SPRITE_SCALE + X_OFFSET,
+            row * SPRITE_HEIGHT * SPRITE_SCALE + Y_OFFSET,
+            SPRITE_WIDTH * SPRITE_SCALE,
+            SPRITE_WIDTH * SPRITE_SCALE
+    };
+    DrawTexturePro(spriteTexture, srcRect, destRect, origin, 0, WHITE);
+}
+
+void DrawActors() {
+    for (int i = 0; i < TILE_COUNT; ++i) {
+        ActorTypes currentActor = actors[i];
+        Texture2D actorTexture = Textures[Sprites[EMPTY_LOOT_SPRITE].TextureId];
+        int row = GetRowFromIdx(i);
+        int col = GetColFromIdx(i);
+        Vector2 origin = {0.0f, 0.0f};
+        switch (currentActor) {
+            case UP_ARROW:
+                DrawActor(UP_ARROW_SPRITE, row, col, origin);
+                break;
+            case RIGHT_ARROW:
+                DrawActor(RIGHT_ARROW_SPRITE, row, col, origin);
+                break;
+            case DOWN_ARROW:
+                DrawActor(DOWN_ARROW_SPRITE, row, col, origin);
+                break;
+            case LEFT_ARROW:
+                DrawActor(LEFT_ARROW_SPRITE, row, col, origin);
+                break;
+            case INERT_MONSTER:
+                DrawActor(IDLE_SLIME_SPRITE, row, col, origin);
+                break;
+            case ACTIVE_MONSTER:
+                DrawActor(ACTIVE_SLIME_SPRITE, row, col, origin);
+                break;
+            case INERT_POTION:
+                DrawActor(EMPTY_LOOT_SPRITE, row, col, origin);
+                break;
+            case ACTIVE_POTION:
+                DrawActor(POTION_LOOT_SPRITE, row, col, origin);
+                break;
+            case INERT_COINS:
+                DrawActor(EMPTY_LOOT_SPRITE, row, col, origin);
+                break;
+            case ACTIVE_COINS:
+                DrawActor(COIN_LOOT_SPRITE, row, col, origin);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 void DrawGame() {
-    Vector2 position = { 0.0f, 0.0f };
     ClearBackground(BLACK);
-    DrawTiled(map, 0, 0, WHITE);
-    Rectangle drawRect = {
-        Sprites[ACTIVE_SLIME_SPRITE].originX * SPRITE_WIDTH,
-        Sprites[ACTIVE_SLIME_SPRITE].originY * SPRITE_HEIGHT,
-        SPRITE_WIDTH,
-        SPRITE_HEIGHT
-    };
-    Rectangle destRect = { 0.0f, 0.0f, 64.0f, 64.0f };
-//    DrawTextureRec(Textures[Sprites[ACTIVE_SLIME_SPRITE].TextureId], drawRect, position, WHITE);
-    // scaled render of active slime
-    DrawTexturePro(Textures[Sprites[ACTIVE_SLIME_SPRITE].TextureId], drawRect, destRect, position, 0, WHITE);
+    DrawTiled(map, X_OFFSET, Y_OFFSET, WHITE);
+    DrawActors();
 }
