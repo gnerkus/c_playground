@@ -5,13 +5,13 @@
 
 #include "loading.h"
 #include "main.h"
-#include "resource_ids.h"
 
 #include "raylib.h"
 
 // texture IDs
 const int TILESET_TEXTURE = 0;
 const int ACTORS_TEXTURE = 1;
+const int BG_TEXTURE = 2;
 
 const char *itemsToLoad[MAX_TEXTURES_TO_LOAD];
 
@@ -42,6 +42,7 @@ void InitResources() {
 
     itemsToLoad[TILESET_TEXTURE] = "resources/vectorogue_floor.png";
     itemsToLoad[ACTORS_TEXTURE] = "resources/vectorogue_actors.png";
+    itemsToLoad[BG_TEXTURE] = "resources/background.png";
 
     // sprite info
     SPRITE_WIDTH = 32;

@@ -5,6 +5,7 @@
 #ifndef VECTOROGUE_GAMEPLAY_UI_H
 #define VECTOROGUE_GAMEPLAY_UI_H
 
+void DrawBackground();
 void DrawPlayerHP();
 void DrawTurnTimer();
 void DrawPlayerCoins();
