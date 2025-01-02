@@ -7,7 +7,7 @@
 
 #include "raylib.h"
 
-#define MAX_TEXTURES_TO_LOAD 2
+#define MAX_TEXTURES_TO_LOAD 3
 
 struct SpriteInfo {
     int TextureId;

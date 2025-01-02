@@ -46,9 +46,9 @@ endif()
 
 # Our Project
 set(INCLUDES src/include)
-set(HEADER_FILES ${INCLUDES}/main.h ${INCLUDES}/game.h ${INCLUDES}/resource_ids.h ${INCLUDES}/loading.h)
+set(HEADER_FILES ${INCLUDES}/main.h ${INCLUDES}/game.h ${INCLUDES}/resource_ids.h ${INCLUDES}/loading.h ${INCLUDES}/gameplay_ui.h)
 
-add_executable(${PROJECT_NAME} ${HEADER_FILES} src/main.c src/game.c src/loading.c)
+add_executable(${PROJECT_NAME} ${HEADER_FILES} src/main.c src/game.c src/loading.c src/gameplay_ui.c)
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 
 #set(raylib_VERBOSE 1)

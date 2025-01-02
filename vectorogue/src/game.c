@@ -5,6 +5,7 @@
 #include "game.h"
 #include "loading.h"
 #include "resource_ids.h"
+#include "gameplay_ui.h"
 
 #include "raylib.h"
 #include <stdlib.h>
@@ -135,8 +136,8 @@ void DebugPlayerState() {
 // PUBLIC (in header file)
 // ----------------------------------------------------------
 void InitGame() {
-    X_OFFSET = screenWidth / 2 - (GRID_WIDTH * SPRITE_WIDTH / 2);
-    Y_OFFSET = screenHeight / 2 - (GRID_WIDTH * SPRITE_HEIGHT / 2);
+    X_OFFSET = screenWidth / 2 - (GRID_WIDTH * SPRITE_WIDTH);
+    Y_OFFSET = screenHeight / 2 - (GRID_WIDTH * SPRITE_HEIGHT);
 
     // initialize actor counts
     for (int i = 0; i < ACTOR_TYPE_COUNT; ++i) {
@@ -448,6 +449,7 @@ void DrawActors() {
 
 void DrawGame() {
     ClearBackground(BLACK);
+    DrawBackground();
     DrawTiled(map, X_OFFSET, Y_OFFSET, WHITE);
     DrawActors();
 }
