@@ -28,5 +28,6 @@ extern int screenWidth;
 extern int screenHeight;
 
 extern Map map;
+extern Font font;
 
 #endif //VECTOROGUE_MAIN_H

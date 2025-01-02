@@ -74,6 +74,7 @@ void CleanupResources() {
     loadedCount = 0;
 
     UnloadMap(map);
+    UnloadFont(font);
     mapLoaded = false;
 }
 
@@ -127,6 +128,8 @@ void UpdateLoad() {
             map = LoadTiled("resources/floor.json");
             mapLoaded = true;
         }
+
+        font = LoadFont("resources/pixantiqua.png");
     }
 
     if (mapLoaded) {
