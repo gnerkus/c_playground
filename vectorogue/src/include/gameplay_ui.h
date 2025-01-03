@@ -7,7 +7,7 @@
 
 void DrawBackground();
 void DrawPlayerHP();
-void DrawTurnTimer();
+void DrawTurnTimer(int timer);
 void DrawPlayerCoins();
 
 #endif //VECTOROGUE_GAMEPLAY_UI_H

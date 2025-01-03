@@ -451,5 +451,6 @@ void DrawGame() {
     ClearBackground(BLACK);
     DrawBackground();
     DrawTiled(map, X_OFFSET, Y_OFFSET, WHITE);
+    DrawTurnTimer((240 - timer) / 60);
     DrawActors();
 }
