@@ -31,6 +31,8 @@ int Y_OFFSET;
 static const int TIMER_X_OFFSET = 21;
 static const int TIMER_Y_OFFSET = 64;
 static const int STATS_X_OFFSET = 96;
+static const int HP_Y_OFFSET = 60;
+static const int HP_BAR_WIDTH = 21;
 
 // -----------------------------------------------------
 // VARIABLES
@@ -460,6 +462,13 @@ void DrawGame() {
             (TURN_SIZE - timer) / fps + 1,
             X_OFFSET + (GRID_WIDTH * SPRITE_WIDTH * 2) - TIMER_X_OFFSET,
             Y_OFFSET - TIMER_Y_OFFSET
+    );
+    DrawPlayerHP(
+            MAX_PLAYER_HP,
+            playerHP,
+            X_OFFSET,
+            Y_OFFSET - HP_Y_OFFSET,
+            HP_BAR_WIDTH
     );
     DrawPlayerCoins(
             playerCoins,

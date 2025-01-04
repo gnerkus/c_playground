@@ -6,7 +6,7 @@
 #define VECTOROGUE_GAMEPLAY_UI_H
 
 void DrawBackground();
-void DrawPlayerHP();
+void DrawPlayerHP(int maxHP, int currentHP, int posX, int posY, int hpBarWidth);
 void DrawTurnTimer(int timer, int posX, int posY);
 void DrawPlayerCoins(int coins, int posX, int posY);
 

@@ -7,11 +7,18 @@
 Font font;
 
 void DrawBackground() {
+    // TODO: move the '2' to the constant representing the background texture
     DrawTexture(Textures[2], 0, 0, WHITE);
 }
 
-void DrawPlayerHP() {
-
+void DrawPlayerHP(int maxHP, int currentHP, int posX, int posY, int barWidth) {
+    int empty = maxHP - currentHP;
+    for (int i = 0; i < currentHP; ++i) {
+        DrawTexture(Textures[3], (i * barWidth) + posX, posY, WHITE);
+    }
+    for (int i = 0; i < empty; ++i) {
+        DrawTexture(Textures[4], (i * barWidth) + posX + (barWidth * currentHP), posY, WHITE);
+    }
 }
 
 void DrawTurnTimer(int timer, int posX, int posY) {
