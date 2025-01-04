@@ -14,8 +14,8 @@ void DrawPlayerHP() {
 
 }
 
-void DrawTurnTimer(int timer) {
-    Vector2 timerPosition = { 0.0f, 0.0f };
+void DrawTurnTimer(int timer, int posX, int posY) {
+    Vector2 timerPosition = { posX, posY };
     DrawTextEx(font, TextFormat("%i", timer), timerPosition, font.baseSize * 4.0f, 4.0f, VR_WHITE);
 }
 

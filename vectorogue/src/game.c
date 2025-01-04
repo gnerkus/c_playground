@@ -28,6 +28,8 @@ static const int MAX_NEW_ACTOR = 2;
 static const int SPRITE_SCALE = 2;
 int X_OFFSET;
 int Y_OFFSET;
+static const int TIMER_OFFSET_X = 21;
+static const int TIMER_OFFSET_Y = 64;
 
 // -----------------------------------------------------
 // VARIABLES
@@ -453,6 +455,10 @@ void DrawGame() {
     ClearBackground(BLACK);
     DrawBackground();
     DrawTiled(map, X_OFFSET, Y_OFFSET, WHITE);
-    DrawTurnTimer((TURN_SIZE - timer) / fps + 1);
+    DrawTurnTimer(
+            (TURN_SIZE - timer) / fps + 1,
+            X_OFFSET + (GRID_WIDTH * SPRITE_WIDTH * 2) - TIMER_OFFSET_X,
+            Y_OFFSET - TIMER_OFFSET_Y
+    );
     DrawActors();
 }
