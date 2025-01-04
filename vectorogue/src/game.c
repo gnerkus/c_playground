@@ -10,6 +10,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define GRID_WIDTH 3
 #define TILE_COUNT GRID_WIDTH * GRID_WIDTH
@@ -288,7 +289,7 @@ void HandleTurn() {
                 playerCoins += 1;
                 break;
             case ACTIVE_POTION:
-                playerHP += 1;
+                playerHP = (int)fmin(playerHP + 1, MAX_PLAYER_HP);
                 break;
             case INERT_POTION:
             case INERT_MONSTER:
