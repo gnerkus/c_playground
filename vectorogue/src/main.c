@@ -1,4 +1,3 @@
-#include "raylib.h"
 #include "main.h"
 #include "game.h"
 #include "loading.h"
@@ -12,6 +11,7 @@ int framesCounter = 0;
 Map map;
 int screenWidth = 1280;
 int screenHeight = 720;
+int fps = 60;
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -25,7 +25,7 @@ int main(void)
     // load assets
     InitResources();
 
-    SetTargetFPS(60);               // Set desired framerate (frames-per-second)
+    SetTargetFPS(fps);               // Set desired framerate (frames-per-second)
     //--------------------------------------------------------------------------------------
 
     // Main game loop

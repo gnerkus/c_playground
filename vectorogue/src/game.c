@@ -5,10 +5,12 @@
 #include "game.h"
 #include "loading.h"
 #include "resource_ids.h"
+#include "gameplay_ui.h"
 
 #include "raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define GRID_WIDTH 3
 #define TILE_COUNT GRID_WIDTH * GRID_WIDTH
@@ -18,7 +20,8 @@
 // CONSTANTS
 // ----------------------------------------------------
 static const int INIT_ACTOR_COUNT = 4;
-static const int INIT_PLAYER_HP = 10;
+static const int MAX_PLAYER_HP = 6;
+static const int TURN_SIZE = 240;
 static const int INIT_TURN_SPEED = 1;
 static const int INIT_DELAY = 1;
 static const int TIME_UNTIL_NEXT_INPUT = 15;
@@ -26,6 +29,11 @@ static const int MAX_NEW_ACTOR = 2;
 static const int SPRITE_SCALE = 2;
 int X_OFFSET;
 int Y_OFFSET;
+static const int TIMER_X_OFFSET = 21;
+static const int TIMER_Y_OFFSET = 64;
+static const int STATS_X_OFFSET = 96;
+static const int HP_Y_OFFSET = 60;
+static const int HP_BAR_WIDTH = 21;
 
 // -----------------------------------------------------
 // VARIABLES
@@ -135,8 +143,8 @@ void DebugPlayerState() {
 // PUBLIC (in header file)
 // ----------------------------------------------------------
 void InitGame() {
-    X_OFFSET = screenWidth / 2 - (GRID_WIDTH * SPRITE_WIDTH / 2);
-    Y_OFFSET = screenHeight / 2 - (GRID_WIDTH * SPRITE_HEIGHT / 2);
+    X_OFFSET = screenWidth / 2 - (GRID_WIDTH * SPRITE_WIDTH);
+    Y_OFFSET = screenHeight / 2 - (GRID_WIDTH * SPRITE_HEIGHT);
 
     // initialize actor counts
     for (int i = 0; i < ACTOR_TYPE_COUNT; ++i) {
@@ -166,7 +174,7 @@ void InitGame() {
     // add random actors to grid
     AddRandomActorsToGrid(INIT_ACTOR_COUNT);
 
-    playerHP = INIT_PLAYER_HP;
+    playerHP = MAX_PLAYER_HP;
     playerCoins = 0;
     turnSpeed = INIT_TURN_SPEED;
 
@@ -281,7 +289,7 @@ void HandleTurn() {
                 playerCoins += 1;
                 break;
             case ACTIVE_POTION:
-                playerHP += 1;
+                playerHP = (int)fmin(playerHP + 1, MAX_PLAYER_HP);
                 break;
             case INERT_POTION:
             case INERT_MONSTER:
@@ -371,9 +379,10 @@ void UpdateGame() {
             }
 
             // timer; runs every 1/turnSpeed seconds
-            if ((timer % (240 / turnSpeed)) == 0) {
+            if ((timer % (TURN_SIZE / turnSpeed)) == 0) {
                 DisableInput();
                 HandleTurn();
+                timer = 0;
                 EnableInput();
             }
 
@@ -448,6 +457,24 @@ void DrawActors() {
 
 void DrawGame() {
     ClearBackground(BLACK);
+    DrawBackground();
     DrawTiled(map, X_OFFSET, Y_OFFSET, WHITE);
+    DrawTurnTimer(
+            (TURN_SIZE - timer) / fps + 1,
+            X_OFFSET + (GRID_WIDTH * SPRITE_WIDTH * 2) - TIMER_X_OFFSET,
+            Y_OFFSET - TIMER_Y_OFFSET
+    );
+    DrawPlayerHP(
+            MAX_PLAYER_HP,
+            playerHP,
+            X_OFFSET,
+            Y_OFFSET - HP_Y_OFFSET,
+            HP_BAR_WIDTH
+    );
+    DrawPlayerCoins(
+            playerCoins,
+            X_OFFSET - STATS_X_OFFSET,
+            Y_OFFSET
+    );
     DrawActors();
 }

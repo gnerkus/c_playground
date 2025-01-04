@@ -5,13 +5,15 @@
 
 #include "loading.h"
 #include "main.h"
-#include "resource_ids.h"
 
 #include "raylib.h"
 
 // texture IDs
 const int TILESET_TEXTURE = 0;
 const int ACTORS_TEXTURE = 1;
+const int BG_TEXTURE = 2;
+const int HP_FULL_TEXTURE = 3;
+const int HP_EMPTY_TEXTURE = 4;
 
 const char *itemsToLoad[MAX_TEXTURES_TO_LOAD];
 
@@ -42,6 +44,9 @@ void InitResources() {
 
     itemsToLoad[TILESET_TEXTURE] = "resources/vectorogue_floor.png";
     itemsToLoad[ACTORS_TEXTURE] = "resources/vectorogue_actors.png";
+    itemsToLoad[BG_TEXTURE] = "resources/background.png";
+    itemsToLoad[HP_FULL_TEXTURE] = "resources/hp_full.png";
+    itemsToLoad[HP_EMPTY_TEXTURE] = "resources/hp_empty.png";
 
     // sprite info
     SPRITE_WIDTH = 32;
@@ -73,6 +78,7 @@ void CleanupResources() {
     loadedCount = 0;
 
     UnloadMap(map);
+    UnloadFont(font);
     mapLoaded = false;
 }
 
@@ -126,6 +132,8 @@ void UpdateLoad() {
             map = LoadTiled("resources/floor.json");
             mapLoaded = true;
         }
+
+        font = LoadFont("resources/pixantiqua.png");
     }
 
     if (mapLoaded) {
