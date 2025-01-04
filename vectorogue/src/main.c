@@ -1,4 +1,3 @@
-#include "raylib.h"
 #include "main.h"
 #include "game.h"
 #include "loading.h"
