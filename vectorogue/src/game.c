@@ -375,6 +375,7 @@ void UpdateGame() {
             if ((timer % (240 / turnSpeed)) == 0) {
                 DisableInput();
                 HandleTurn();
+                timer = 0;
                 EnableInput();
             }
 
@@ -451,6 +452,6 @@ void DrawGame() {
     ClearBackground(BLACK);
     DrawBackground();
     DrawTiled(map, X_OFFSET, Y_OFFSET, WHITE);
-    DrawTurnTimer((240 - timer) / 60);
+    DrawTurnTimer((240 - timer) / 60 + 1);
     DrawActors();
 }

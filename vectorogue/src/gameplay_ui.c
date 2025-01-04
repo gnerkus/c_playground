@@ -16,7 +16,7 @@ void DrawPlayerHP() {
 
 void DrawTurnTimer(int timer) {
     Vector2 timerPosition = { 0.0f, 0.0f };
-    DrawTextEx(font, TextFormat("%08i", timer), timerPosition, font.baseSize * 4.0f, 2.0f, VR_WHITE);
+    DrawTextEx(font, TextFormat("%i", timer), timerPosition, font.baseSize * 4.0f, 4.0f, VR_WHITE);
 }
 
 void DrawPlayerCoins() {
