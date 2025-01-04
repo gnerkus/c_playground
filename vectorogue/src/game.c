@@ -20,6 +20,7 @@
 // ----------------------------------------------------
 static const int INIT_ACTOR_COUNT = 4;
 static const int INIT_PLAYER_HP = 10;
+static const int TURN_SIZE = 240;
 static const int INIT_TURN_SPEED = 1;
 static const int INIT_DELAY = 1;
 static const int TIME_UNTIL_NEXT_INPUT = 15;
@@ -372,7 +373,7 @@ void UpdateGame() {
             }
 
             // timer; runs every 1/turnSpeed seconds
-            if ((timer % (240 / turnSpeed)) == 0) {
+            if ((timer % (TURN_SIZE / turnSpeed)) == 0) {
                 DisableInput();
                 HandleTurn();
                 timer = 0;
@@ -452,6 +453,6 @@ void DrawGame() {
     ClearBackground(BLACK);
     DrawBackground();
     DrawTiled(map, X_OFFSET, Y_OFFSET, WHITE);
-    DrawTurnTimer((240 - timer) / 60 + 1);
+    DrawTurnTimer((TURN_SIZE - timer) / fps + 1);
     DrawActors();
 }

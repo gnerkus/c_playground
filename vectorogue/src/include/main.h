@@ -31,6 +31,7 @@ extern int framesCounter;
 
 extern int screenWidth;
 extern int screenHeight;
+extern int fps;
 
 extern Map map;
 extern Font font;
