@@ -19,6 +19,9 @@ void DrawTurnTimer(int timer, int posX, int posY) {
     DrawTextEx(font, TextFormat("%i", timer), timerPosition, font.baseSize * 4.0f, 4.0f, VR_WHITE);
 }
 
-void DrawPlayerCoins() {
-
+void DrawPlayerCoins(int coins, int posX, int posY) {
+    Vector2 labelPos = { posX, posY };
+    Vector2 coinsPos = { posX + 18, posY + 32 };
+    DrawTextEx(font, "coins", labelPos, font.baseSize * 2.0f, 4.0f, VR_DARKGRAY);
+    DrawTextEx(font, TextFormat("%i", coins), coinsPos, font.baseSize * 2.0f, 4.0f, VR_GRAY);
 }
