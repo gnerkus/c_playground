@@ -19,7 +19,7 @@
 // CONSTANTS
 // ----------------------------------------------------
 static const int INIT_ACTOR_COUNT = 4;
-static const int INIT_PLAYER_HP = 10;
+static const int MAX_PLAYER_HP = 6;
 static const int TURN_SIZE = 240;
 static const int INIT_TURN_SPEED = 1;
 static const int INIT_DELAY = 1;
@@ -171,7 +171,7 @@ void InitGame() {
     // add random actors to grid
     AddRandomActorsToGrid(INIT_ACTOR_COUNT);
 
-    playerHP = INIT_PLAYER_HP;
+    playerHP = MAX_PLAYER_HP;
     playerCoins = 0;
     turnSpeed = INIT_TURN_SPEED;
 
