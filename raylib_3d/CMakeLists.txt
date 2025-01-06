@@ -24,9 +24,15 @@ endif()
 
 # Our Project
 
-add_executable(${PROJECT_NAME} window.c)
+add_executable(${PROJECT_NAME} includes/rlights.h window.c)
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
+
+# Resources
+file(GLOB resources resources/*)
+set(test_resources)
+list(APPEND test_resources ${resources})
+file(COPY ${test_resources} DESTINATION "resources/")
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
