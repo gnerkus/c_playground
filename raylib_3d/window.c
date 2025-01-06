@@ -53,8 +53,8 @@ int main(void)
     camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
 
     // Load basic lighting shader
-    Shader shader = LoadShader(TextFormat("resources/shaders/lighting.vs", GLSL_VERSION),
-                               TextFormat("resources/shaders/lighting.fs", GLSL_VERSION));
+    Shader shader = LoadShader(TextFormat("resources/shaders/lighting.vert", GLSL_VERSION),
+                               TextFormat("resources/shaders/lighting.frag", GLSL_VERSION));
     // Get some required shader locations
     shader.locs[SHADER_LOC_VECTOR_VIEW] = GetShaderLocation(shader, "viewPos");
     // NOTE: "matModel" location name is automatically assigned on shader loading,
