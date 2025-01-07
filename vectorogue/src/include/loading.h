@@ -17,6 +17,7 @@ struct SpriteInfo {
 
 extern struct SpriteInfo Sprites[32];
 extern Texture2D Textures[MAX_TEXTURES_TO_LOAD];
+extern Music gameplayMusic;
 
 void InitResources();
 void CleanupResources();

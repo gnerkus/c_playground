@@ -22,7 +22,8 @@ int main(void)
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "Vectorogue");
 
-    // load assets
+    InitAudioDevice();
+
     InitResources();
 
     SetTargetFPS(fps);               // Set desired framerate (frames-per-second)
@@ -131,6 +132,8 @@ int main(void)
 
     // unload resources
     CleanupResources();
+
+    CloseAudioDevice();
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------

@@ -65,6 +65,7 @@ static int turnSpeed = 0;
 
 struct SpriteInfo Sprites[32];
 Texture2D Textures[MAX_TEXTURES_TO_LOAD];
+Music gameplayMusic;
 
 // ----------------------------------------------------------
 // PRIVATE
@@ -180,6 +181,8 @@ void InitGame() {
 
     timer = INIT_DELAY;
     EnableInput();
+
+    PlayMusicStream(gameplayMusic);
 }
 
 int GetIdxFromRowCol(int row, int col) {
@@ -368,6 +371,7 @@ void HandleTransform() {
 
 void UpdateGame() {
     if (currentState != GAMEOVER) {
+        UpdateMusicStream(gameplayMusic);
         if (currentState != PAUSED) {
             if (timeSinceLastInput >= TIME_UNTIL_NEXT_INPUT && !allowInput) {
                 EnableInput();
