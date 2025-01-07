@@ -33,6 +33,7 @@ extern int screenWidth;
 extern int screenHeight;
 extern int fps;
 
+// TODO: move map to loading.h
 extern Map map;
 extern Font font;
 

@@ -79,6 +79,7 @@ void CleanupResources() {
 
     UnloadMap(map);
     UnloadFont(font);
+    UnloadMusicStream(gameplayMusic);
     mapLoaded = false;
 }
 
@@ -134,6 +135,7 @@ void UpdateLoad() {
         }
 
         font = LoadFont("resources/pixantiqua.png");
+        gameplayMusic = LoadMusicStream("resources/gameplay.mp3");
     }
 
     if (mapLoaded) {
