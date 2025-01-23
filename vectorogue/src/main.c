@@ -1,6 +1,7 @@
 #include "main.h"
 #include "game.h"
 #include "loading.h"
+#include "mainmenu.h"
 
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -102,11 +103,7 @@ int main(void)
                 } break;
                 case MENU:
                 {
-                    // TODO: Draw TITLE screen here!
-                    DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
-                    DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-                    DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
-
+                    DrawMainMenu();
                 } break;
                 case RUNNING:
                 {
