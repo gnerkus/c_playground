@@ -7,7 +7,7 @@
 
 #include "raylib.h"
 
-#define MAX_TEXTURES_TO_LOAD 5
+#define MAX_TEXTURES_TO_LOAD 10
 
 struct SpriteInfo {
     int TextureId;
@@ -22,6 +22,7 @@ extern Music gameplayMusic;
 void InitResources();
 void CleanupResources();
 
+void DrawLoad();
 void UpdateLoad();
 
 #endif //VECTOROGUE_LOADING_H

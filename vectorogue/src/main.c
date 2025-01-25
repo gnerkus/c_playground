@@ -1,6 +1,7 @@
 #include "main.h"
 #include "game.h"
 #include "loading.h"
+#include "mainmenu.h"
 
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -12,6 +13,7 @@ Map map;
 int screenWidth = 1280;
 int screenHeight = 720;
 int fps = 60;
+bool exitWindow = false;
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -21,6 +23,7 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "Vectorogue");
+    SetExitKey(0);
 
     InitAudioDevice();
 
@@ -30,14 +33,16 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!exitWindow)    // Detect window close button or ESC key
     {
+        if (WindowShouldClose()) exitWindow = true;
         // Update
         //----------------------------------------------------------------------------------
         switch(currentState)
         {
             case STARTUP:
             {
+                // TODO: move to loading state after showing developer logo
                 currentState = LOADING;
             } break;
             case LOADING:
@@ -46,23 +51,11 @@ int main(void)
             } break;
             case MENU:
             {
-                // TODO: Update TITLE screen variables here!
-
-                // Press enter to change to GAMEPLAY screen
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                {
-                    StartGame();
-                }
+                UpdateMainMenu();
             } break;
             case RUNNING:
             {
                 UpdateGame();
-
-                // Press enter to change to ENDING screen
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                {
-                    currentState = QUITTING;
-                }
             } break;
             case QUITTING:
             {
@@ -95,18 +88,11 @@ int main(void)
                 } break;
                 case LOADING:
                 {
-                    DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
-                    DrawText("LOADING SCREEN", 20, 20, 40, MAROON);
-                    DrawText("PRESS ENTER or TAP to JUMP to MENU SCREEN", 120, 220, 20, MAROON);
-
+                    DrawLoad();
                 } break;
                 case MENU:
                 {
-                    // TODO: Draw TITLE screen here!
-                    DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
-                    DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-                    DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
-
+                    DrawMainMenu();
                 } break;
                 case RUNNING:
                 {
@@ -142,10 +128,15 @@ int main(void)
 }
 
 void LoadComplete() {
+    InitMainMenu();
     currentState = MENU;
 }
 
 void StartGame() {
     InitGame();
     currentState = RUNNING;
+}
+
+void QuitGame() {
+    currentState = QUITTING;
 }

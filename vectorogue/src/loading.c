@@ -14,6 +14,11 @@ const int ACTORS_TEXTURE = 1;
 const int BG_TEXTURE = 2;
 const int HP_FULL_TEXTURE = 3;
 const int HP_EMPTY_TEXTURE = 4;
+const int MENU_BG_TEXTURE = 5;
+const int MENU_TILE_TEXTURE = 6;
+const int MENU_TITLE_TEXTURE = 7;
+const int PLAY_BTN_TEXTURE = 8;
+const int EXIT_BTN_TEXTURE = 9;
 
 const char *itemsToLoad[MAX_TEXTURES_TO_LOAD];
 
@@ -47,6 +52,11 @@ void InitResources() {
     itemsToLoad[BG_TEXTURE] = "resources/background.png";
     itemsToLoad[HP_FULL_TEXTURE] = "resources/hp_full.png";
     itemsToLoad[HP_EMPTY_TEXTURE] = "resources/hp_empty.png";
+    itemsToLoad[MENU_BG_TEXTURE] = "resources/menu_bg.png";
+    itemsToLoad[MENU_TILE_TEXTURE] = "resources/menu_field.png";
+    itemsToLoad[MENU_TITLE_TEXTURE] = "resources/title.png";
+    itemsToLoad[PLAY_BTN_TEXTURE] = "resources/play_button.png";
+    itemsToLoad[EXIT_BTN_TEXTURE] = "resources/exit_button.png";
 
     // sprite info
     SPRITE_WIDTH = 32;
@@ -146,4 +156,8 @@ void UpdateLoad() {
 
     Textures[loadedCount] = LoadTexture(itemsToLoad[loadedCount]);
     loadedCount++;
+}
+
+void DrawLoad() {
+    DrawRectangle(384, 328, (loadedCount / MAX_TEXTURES_TO_LOAD) * 512, 64, SKYBLUE);
 }

@@ -140,51 +140,6 @@ void DebugPlayerState() {
     printf("PLAYER STATE: END\n");
 }
 
-// ----------------------------------------------------------
-// PUBLIC (in header file)
-// ----------------------------------------------------------
-void InitGame() {
-    X_OFFSET = screenWidth / 2 - (GRID_WIDTH * SPRITE_WIDTH);
-    Y_OFFSET = screenHeight / 2 - (GRID_WIDTH * SPRITE_HEIGHT);
-
-    // initialize actor counts
-    for (int i = 0; i < ACTOR_TYPE_COUNT; ++i) {
-        actorCounts[i] = 0;
-    }
-    // initialize grid tiles
-    for (int i = 0; i < TILE_COUNT; ++i) {
-        actors[i] = EMPTY;
-    }
-
-    // grid is full of empty tiles at start
-    actorCounts[EMPTY] = TILE_COUNT;
-
-    // keep track of empty tiles when handling arrow actors
-    for (int i = 0; i < TILE_COUNT; ++i) {
-        tempEmpty[i] = -1;
-    }
-
-    // add indices of empty tile slots to list of empty tiles
-    for (int i = 0; i < TILE_COUNT; ++i) {
-        pushToEmpty(i);
-    }
-
-    // shuffle list of empty tile indices
-    shuffleEmpty();
-
-    // add random actors to grid
-    AddRandomActorsToGrid(INIT_ACTOR_COUNT);
-
-    playerHP = MAX_PLAYER_HP;
-    playerCoins = 0;
-    turnSpeed = INIT_TURN_SPEED;
-
-    timer = INIT_DELAY;
-    EnableInput();
-
-    PlayMusicStream(gameplayMusic);
-}
-
 int GetIdxFromRowCol(int row, int col) {
     return row * GRID_WIDTH + col;
 }
@@ -369,34 +324,6 @@ void HandleTransform() {
     }
 }
 
-void UpdateGame() {
-    if (currentState != GAMEOVER) {
-        UpdateMusicStream(gameplayMusic);
-        if (currentState != PAUSED) {
-            if (timeSinceLastInput >= TIME_UNTIL_NEXT_INPUT && !allowInput) {
-                EnableInput();
-            }
-
-            if (IsKeyPressed(KEY_SPACE) && allowInput) {
-                HandleTransform();
-                DisableInput();
-            }
-
-            // timer; runs every 1/turnSpeed seconds
-            if ((timer % (TURN_SIZE / turnSpeed)) == 0) {
-                DisableInput();
-                HandleTurn();
-                timer = 0;
-                EnableInput();
-            }
-
-            framesCounter++;
-            timer++;
-            timeSinceLastInput++;
-        }
-    }
-}
-
 void DrawActor(int actorID, int row, int col, Vector2 origin) {
     struct SpriteInfo actorInfo = Sprites[actorID];
     Texture2D spriteTexture = Textures[actorInfo.TextureId];
@@ -455,6 +382,79 @@ void DrawActors() {
                 break;
             default:
                 break;
+        }
+    }
+}
+
+// ----------------------------------------------------------
+// PUBLIC (in header file)
+// ----------------------------------------------------------
+void InitGame() {
+    X_OFFSET = screenWidth / 2 - (GRID_WIDTH * SPRITE_WIDTH);
+    Y_OFFSET = screenHeight / 2 - (GRID_WIDTH * SPRITE_HEIGHT);
+
+    // initialize actor counts
+    for (int i = 0; i < ACTOR_TYPE_COUNT; ++i) {
+        actorCounts[i] = 0;
+    }
+    // initialize grid tiles
+    for (int i = 0; i < TILE_COUNT; ++i) {
+        actors[i] = EMPTY;
+    }
+
+    // grid is full of empty tiles at start
+    actorCounts[EMPTY] = TILE_COUNT;
+
+    // keep track of empty tiles when handling arrow actors
+    for (int i = 0; i < TILE_COUNT; ++i) {
+        tempEmpty[i] = -1;
+    }
+
+    // add indices of empty tile slots to list of empty tiles
+    for (int i = 0; i < TILE_COUNT; ++i) {
+        pushToEmpty(i);
+    }
+
+    // shuffle list of empty tile indices
+    shuffleEmpty();
+
+    // add random actors to grid
+    AddRandomActorsToGrid(INIT_ACTOR_COUNT);
+
+    playerHP = MAX_PLAYER_HP;
+    playerCoins = 0;
+    turnSpeed = INIT_TURN_SPEED;
+
+    timer = INIT_DELAY;
+    EnableInput();
+
+    PlayMusicStream(gameplayMusic);
+}
+
+void UpdateGame() {
+    if (currentState != GAMEOVER) {
+        UpdateMusicStream(gameplayMusic);
+        if (currentState != PAUSED) {
+            if (timeSinceLastInput >= TIME_UNTIL_NEXT_INPUT && !allowInput) {
+                EnableInput();
+            }
+
+            if (IsKeyPressed(KEY_SPACE) && allowInput) {
+                HandleTransform();
+                DisableInput();
+            }
+
+            // timer; runs every 1/turnSpeed seconds
+            if ((timer % (TURN_SIZE / turnSpeed)) == 0) {
+                DisableInput();
+                HandleTurn();
+                timer = 0;
+                EnableInput();
+            }
+
+            framesCounter++;
+            timer++;
+            timeSinceLastInput++;
         }
     }
 }
