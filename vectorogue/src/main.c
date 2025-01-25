@@ -47,13 +47,7 @@ int main(void)
             } break;
             case MENU:
             {
-                // TODO: Update TITLE screen variables here!
-
-                // Press enter to change to GAMEPLAY screen
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                {
-                    StartGame();
-                }
+                UpdateMainMenu();
             } break;
             case RUNNING:
             {
@@ -139,6 +133,7 @@ int main(void)
 }
 
 void LoadComplete() {
+    InitMainMenu();
     currentState = MENU;
 }
 
