@@ -42,6 +42,7 @@ int main(void)
         {
             case STARTUP:
             {
+                // TODO: move to loading state after showing developer logo
                 currentState = LOADING;
             } break;
             case LOADING:
@@ -87,10 +88,7 @@ int main(void)
                 } break;
                 case LOADING:
                 {
-                    DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
-                    DrawText("LOADING SCREEN", 20, 20, 40, MAROON);
-                    DrawText("PRESS ENTER or TAP to JUMP to MENU SCREEN", 120, 220, 20, MAROON);
-
+                    DrawLoad();
                 } break;
                 case MENU:
                 {

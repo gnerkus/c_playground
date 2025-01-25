@@ -157,3 +157,7 @@ void UpdateLoad() {
     Textures[loadedCount] = LoadTexture(itemsToLoad[loadedCount]);
     loadedCount++;
 }
+
+void DrawLoad() {
+    DrawRectangle(384, 328, (loadedCount / MAX_TEXTURES_TO_LOAD) * 512, 64, SKYBLUE);
+}

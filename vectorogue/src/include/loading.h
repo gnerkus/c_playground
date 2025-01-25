@@ -22,6 +22,7 @@ extern Music gameplayMusic;
 void InitResources();
 void CleanupResources();
 
+void DrawLoad();
 void UpdateLoad();
 
 #endif //VECTOROGUE_LOADING_H
