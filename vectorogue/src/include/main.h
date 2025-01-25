@@ -15,6 +15,7 @@
 
 void LoadComplete();
 void StartGame();
+void QuitGame();
 
 typedef enum {
     STARTUP = 0,
@@ -28,6 +29,7 @@ typedef enum {
 
 extern ApplicationStates currentState;
 extern int framesCounter;
+extern bool exitWindow;
 
 extern int screenWidth;
 extern int screenHeight;

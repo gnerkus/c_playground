@@ -27,8 +27,16 @@ void UpdateMainMenu() {
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) playAction = true;
     }
 
+    if (CheckCollisionPointRec(mousePoint, exitBtnBounds)) {
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) exitAction = true;
+    }
+
     if (playAction) {
         StartGame();
+    }
+
+    if (exitAction) {
+        exitWindow = true;
     }
 }
 

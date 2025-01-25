@@ -13,6 +13,7 @@ Map map;
 int screenWidth = 1280;
 int screenHeight = 720;
 int fps = 60;
+bool exitWindow = false;
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -22,6 +23,7 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "Vectorogue");
+    SetExitKey(0);
 
     InitAudioDevice();
 
@@ -31,8 +33,9 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!exitWindow)    // Detect window close button or ESC key
     {
+        if (WindowShouldClose()) exitWindow = true;
         // Update
         //----------------------------------------------------------------------------------
         switch(currentState)
@@ -52,12 +55,6 @@ int main(void)
             case RUNNING:
             {
                 UpdateGame();
-
-                // Press enter to change to ENDING screen
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                {
-                    currentState = QUITTING;
-                }
             } break;
             case QUITTING:
             {
@@ -140,4 +137,8 @@ void LoadComplete() {
 void StartGame() {
     InitGame();
     currentState = RUNNING;
+}
+
+void QuitGame() {
+    currentState = QUITTING;
 }
